@@ -1,0 +1,104 @@
+// Prisma schema for Delivery Management System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User roles
+enum UserRole {
+  ADMIN
+  DRIVER
+  DISPATCHER
+}
+
+// Shipment status
+enum ShipmentStatus {
+  PENDING
+  PICKED_UP
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  FAILED
+  RETURNED
+}
+
+// User model (Admin, Driver, Dispatcher)
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  phone     String?
+  role      UserRole @default(DRIVER)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  assignedShipments Shipment[] @relation("DriverShipments")
+  createdShipments  Shipment[] @relation("CreatorShipments")
+
+  @@map("users")
+}
+
+// Shipment model (Package/Delivery order)
+model Shipment {
+  id             String         @id @default(uuid())
+  trackingNumber String         @unique
+  status         ShipmentStatus @default(PENDING)
+
+  // Sender information
+  senderName    String
+  senderPhone   String
+  senderAddress String
+
+  // Recipient information
+  recipientName    String
+  recipientPhone   String
+  recipientAddress String
+  recipientLat     Float?
+  recipientLng     Float?
+
+  // Package information
+  packageWeight Float?
+  packageSize   String?
+  description   String?
+
+  // Delivery verification
+  deliveryCode String?
+  signatureUrl String?
+  photoUrl     String?
+  deliveredAt  DateTime?
+
+  // Relations
+  driverId    String?
+  driver      User?   @relation("DriverShipments", fields: [driverId], references: [id])
+  createdById String
+  createdBy   User    @relation("CreatorShipments", fields: [createdById], references: [id])
+
+  // Status history
+  statusHistory StatusHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("shipments")
+}
+
+// Status change history
+model StatusHistory {
+  id         String         @id @default(uuid())
+  shipmentId String
+  shipment   Shipment       @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  status     ShipmentStatus
+  note       String?
+  location   String?
+  createdAt  DateTime       @default(now())
+
+  @@map("status_histories")
+}
