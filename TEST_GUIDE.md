@@ -18,6 +18,16 @@ npm run dev
 ```
 Admin runs at: http://localhost:5176
 
+**Mobile App:**
+```bash
+cd delivery-management/mobile
+npm install --legacy-peer-deps
+npx expo start
+```
+Open Expo Go on your device and scan the QR code.
+
+> **Note**: Update `LOCAL_IP` in `mobile/services/api.js` to your PC's local IP for device testing.
+
 ---
 
 ## Test Accounts
@@ -25,11 +35,13 @@ Admin runs at: http://localhost:5176
 | Role | Email | Password |
 |------|-------|----------|
 | Admin | admin@delivery.com | admin123 |
-| Driver | driver@delivery.com | driver123 |
+| Dispatcher | dispatcher@delivery.com | dispatcher123 |
+| Driver 1 | driver1@delivery.com | driver123 |
+| Driver 2 | driver2@delivery.com | driver123 |
 
 ---
 
-## Test Scenarios
+## Test Scenarios - Admin Panel
 
 ### A. Authentication
 
@@ -150,16 +162,6 @@ URL: http://localhost:5176/users
 #### D2. Create User
 Click "Add User" button
 
-**Test Data:**
-```
-Name: Test Driver
-Email: test.driver@delivery.com
-Password: test1234
-Phone: 010-0000-0000
-Role: Driver
-Status: Active
-```
-
 **Check:**
 - [ ] Form validation works
 - [ ] User created successfully
@@ -190,6 +192,135 @@ URL: http://localhost:3000/api-docs
 - [ ] Swagger UI loads
 - [ ] All endpoints listed
 - [ ] Can test endpoints directly
+
+---
+
+## Test Scenarios - Mobile Driver App
+
+### F. Mobile App - Authentication
+
+1. **Login Screen**
+   - Open the app in Expo Go
+   - Expected: Login screen with DeliveryMS logo, email/password fields
+
+2. **Login with Driver Account**
+   - Enter: `driver1@delivery.com` / `driver123`
+   - Tap "Sign In"
+   - Expected: Navigate to Dashboard with greeting "Hello, John Driver"
+
+3. **Invalid Login**
+   - Enter wrong credentials
+   - Expected: Red error message displayed
+
+---
+
+### G. Mobile App - Dashboard
+
+**Check:**
+- [ ] Greeting shows driver name
+- [ ] 4 stat cards: Total, Pending, In Delivery, Delivered
+- [ ] Stats reflect actual assigned shipments
+- [ ] "View All Deliveries" button navigates to Deliveries tab
+- [ ] Active deliveries list shows non-delivered shipments
+- [ ] Pull down to refresh updates data
+- [ ] Tapping a delivery card opens detail screen
+
+---
+
+### H. Mobile App - Deliveries List
+
+**Check:**
+- [ ] "My Deliveries" title with shipment count
+- [ ] Filter tabs: All, Pending, Active, Delivered
+- [ ] "All" shows all assigned shipments
+- [ ] "Pending" shows only PENDING/PICKED_UP shipments
+- [ ] "Active" shows only IN_TRANSIT/OUT_FOR_DELIVERY shipments
+- [ ] "Delivered" shows only DELIVERED shipments
+- [ ] Empty state shown when no shipments match filter
+- [ ] Pull down to refresh
+- [ ] Tapping a card opens delivery detail
+
+---
+
+### I. Mobile App - Delivery Detail
+
+**Check:**
+- [ ] Back button returns to previous screen
+- [ ] Status badge displayed (correct color per status)
+- [ ] Tracking number displayed
+- [ ] Recipient card: name, phone, address
+- [ ] "Call" button present (opens phone dialer on real device)
+- [ ] "Navigate" button present (opens maps app on real device)
+- [ ] Sender card: name, phone, address
+- [ ] Package card: weight, size, description
+- [ ] Timeline shows full status history with timestamps
+- [ ] Note input field (optional)
+
+---
+
+### J. Mobile App - Status Changes
+
+Test the full delivery flow by progressing through each status:
+
+1. **PENDING > PICKED_UP**
+   - Open a PENDING shipment
+   - Tap "Pick Up Package" (blue button)
+   - Confirm in dialog
+   - Expected: Status changes, timeline updates
+
+2. **PICKED_UP > IN_TRANSIT**
+   - Tap "Start Transit" (purple button)
+   - Expected: Status changes to IN_TRANSIT
+
+3. **IN_TRANSIT > OUT_FOR_DELIVERY**
+   - Tap "Out for Delivery" (cyan button)
+   - Expected: Status changes to OUT_FOR_DELIVERY
+
+4. **OUT_FOR_DELIVERY > DELIVERED** (Completion Flow)
+   - Tap "Complete Delivery" (green button)
+   - Expected: 3-step completion modal opens
+
+---
+
+### K. Mobile App - Delivery Completion
+
+When "Complete Delivery" is tapped on an OUT_FOR_DELIVERY shipment:
+
+**Step 1: Photo**
+- [ ] Camera permission requested
+- [ ] "Open Camera" button opens full-screen camera
+- [ ] Flash toggle button (on/off)
+- [ ] Front/back camera switch button
+- [ ] Capture button takes photo
+- [ ] Photo preview with "Retake" and "Next" options
+- [ ] "Skip photo" option available
+
+**Step 2: Delivery Code** (if shipment has delivery code)
+- [ ] 6-digit code input with large numbers
+- [ ] "Next" button disabled until 6 digits entered
+- [ ] Keyboard shows number pad
+
+**Step 3: Confirm**
+- [ ] Summary shows recipient name, photo status, code
+- [ ] "Confirm Delivery" button submits to API
+- [ ] Success alert: "Delivery Complete!"
+- [ ] Returns to deliveries list
+- [ ] Shipment now appears under "Delivered" filter
+
+---
+
+### L. Mobile App - Profile
+
+**Check:**
+- [ ] Avatar with first letter of name
+- [ ] Name and role displayed
+- [ ] Email, phone, role info cards
+- [ ] "Change Password" expandable section
+- [ ] Password change form (current, new, confirm)
+- [ ] Password validation (min 6 chars, must match)
+- [ ] "Sign Out" button with confirmation dialog
+- [ ] After logout, returns to login screen
+- [ ] App version "DeliveryMS Driver v1.0.0" at bottom
 
 ---
 
@@ -226,9 +357,15 @@ curl http://localhost:3000/api/shipments/track/PKG-XXXXXXXX-XXXXX
 - Run `npm install` in admin folder
 - Check port 5176 is available
 
+### Mobile app won't connect
+- Ensure backend is running on port 3000
+- Update `LOCAL_IP` in `mobile/services/api.js` to your PC's IP
+- Ensure phone/emulator is on the same network as your PC
+- For Android emulator: use `10.0.2.2` as IP
+
 ### Login fails
 - Reset database: `npx prisma migrate reset`
-- This recreates admin account
+- This recreates all test accounts
 
 ---
 
@@ -248,3 +385,4 @@ For issues, check:
 1. Backend console for API errors
 2. Browser console (F12) for frontend errors
 3. Network tab for failed requests
+4. Metro bundler console for mobile app errors

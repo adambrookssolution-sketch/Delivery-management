@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "DeliveryMS Driver",
+    "slug": "deliveryms-driver",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "scheme": "deliveryms",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Camera is used to take delivery photos",
+        "NSLocationWhenInUseUsageDescription": "Location is used to track deliveries"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f172a"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        { "cameraPermission": "Camera is used to take delivery photos" }
+      ],
+      [
+        "expo-location",
+        { "locationWhenInUsePermission": "Location is used to track deliveries" }
+      ]
+    ]
+  }
+}
