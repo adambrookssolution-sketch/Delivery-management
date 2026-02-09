@@ -26,7 +26,21 @@
         "backgroundColor": "#0f172a"
       },
       "edgeToEdgeEnabled": true,
-      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.anonymous.deliverymsdriver"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -36,11 +50,15 @@
       "expo-router",
       [
         "expo-camera",
-        { "cameraPermission": "Camera is used to take delivery photos" }
+        {
+          "cameraPermission": "Camera is used to take delivery photos"
+        }
       ],
       [
         "expo-location",
-        { "locationWhenInUsePermission": "Location is used to track deliveries" }
+        {
+          "locationWhenInUsePermission": "Location is used to track deliveries"
+        }
       ]
     ]
   }

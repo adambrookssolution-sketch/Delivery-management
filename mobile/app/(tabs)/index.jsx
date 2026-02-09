@@ -87,7 +87,7 @@ export default function HomeScreen() {
           <Text style={styles.subtitle}>Here's your delivery overview</Text>
         </View>
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>{user?.name?.[0] || 'D'}</Text>
+          <Text style={styles.avatarText}>{(user?.name && user.name[0]) || 'D'}</Text>
         </View>
       </View>
 

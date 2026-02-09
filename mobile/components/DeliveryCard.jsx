@@ -6,19 +6,19 @@ export default function DeliveryCard({ shipment, onPress }) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.7}>
       <View style={styles.header}>
-        <Text style={styles.tracking}>{shipment.trackingNumber}</Text>
+        <Text style={styles.tracking}>{shipment.trackingNumber || 'N/A'}</Text>
         <StatusBadge status={shipment.status} />
       </View>
 
       <View style={styles.info}>
         <View style={styles.row}>
           <Ionicons name="person-outline" size={16} color="#94a3b8" />
-          <Text style={styles.infoText}>{shipment.recipientName}</Text>
+          <Text style={styles.infoText}>{shipment.recipientName || 'Unknown'}</Text>
         </View>
         <View style={styles.row}>
           <Ionicons name="location-outline" size={16} color="#94a3b8" />
           <Text style={styles.infoText} numberOfLines={1}>
-            {shipment.recipientAddress}
+            {shipment.recipientAddress || 'No address'}
           </Text>
         </View>
         {shipment.packageSize && (

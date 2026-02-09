@@ -81,7 +81,7 @@ export default function ProfileScreen() {
       {/* Avatar Card */}
       <View style={styles.avatarCard}>
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>{user?.name?.[0] || 'D'}</Text>
+          <Text style={styles.avatarText}>{(user?.name && user.name[0]) || 'D'}</Text>
         </View>
         <Text style={styles.userName}>{user?.name || 'Driver'}</Text>
         <Text style={styles.userRole}>{user?.role || 'DRIVER'}</Text>

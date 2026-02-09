@@ -114,7 +114,9 @@ export default function DeliveryDetailScreen() {
   };
 
   const callRecipient = () => {
-    Linking.openURL(`tel:${shipment.recipientPhone}`);
+    if (shipment.recipientPhone) {
+      Linking.openURL(`tel:${shipment.recipientPhone}`);
+    }
   };
 
   // Camera & Delivery Completion
@@ -131,9 +133,13 @@ export default function DeliveryDetailScreen() {
 
   const capturePhoto = async () => {
     if (cameraRef.current) {
-      const photo = await cameraRef.current.takePictureAsync({ quality: 0.7 });
-      setCapturedPhoto(photo.uri);
-      setShowCamera(false);
+      try {
+        const photo = await cameraRef.current.takePictureAsync({ quality: 0.7 });
+        setCapturedPhoto(photo.uri);
+        setShowCamera(false);
+      } catch (error) {
+        Alert.alert('Error', 'Failed to capture photo. Please try again.');
+      }
     }
   };
 

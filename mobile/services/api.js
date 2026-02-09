@@ -2,14 +2,13 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
-// Use your PC's local IP for LDPlayer/emulator testing
-const LOCAL_IP = '192.168.125.232';
+// ============================================
+// SERVER CONFIGURATION
+// Change this to your server's IP or domain
+// ============================================
+const SERVER_URL = 'http://192.168.125.232:3000';
 
-const BASE_URL = Platform.select({
-  android: `http://${LOCAL_IP}:3000/api`,
-  ios: 'http://localhost:3000/api',
-  default: 'http://localhost:3000/api',
-});
+const BASE_URL = `${SERVER_URL}/api`;
 
 const api = axios.create({
   baseURL: BASE_URL,
