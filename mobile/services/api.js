@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { enqueue, startListening } from './offlineQueue';
 
 // ============================================
 // SERVER CONFIGURATION
@@ -25,11 +26,31 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
-// Response interceptor - handle 401
+// Response interceptor - handle 401 + offline queue
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // Offline queue: queue mutation requests when no network
+    if (
+      error.message === 'Network Error' &&
+      !originalRequest._retry &&
+      !originalRequest._queued &&
+      ['post', 'put', 'delete'].includes(originalRequest.method) &&
+      !originalRequest.url?.includes('/auth/') &&
+      originalRequest.headers?.['Content-Type'] !== 'multipart/form-data'
+    ) {
+      originalRequest._queued = true;
+      await enqueue(originalRequest);
+      return {
+        data: {
+          success: true,
+          queued: true,
+          message: 'Sin conexion. La solicitud se enviara cuando vuelva la senal.',
+        },
+      };
+    }
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -50,6 +71,9 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// Start offline queue listener
+startListening(api);
 
 export const authAPI = {
   login: (email, password) => api.post('/auth/login', { email, password }),

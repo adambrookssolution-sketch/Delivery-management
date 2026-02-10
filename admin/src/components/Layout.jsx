@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
   const navItems = [
     {
       path: '/',
-      label: 'Dashboard',
+      label: 'Panel',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
     },
     {
       path: '/shipments',
-      label: 'Shipments',
+      label: 'Envíos',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
     },
     {
       path: '/shipments/new',
-      label: 'New Shipment',
+      label: 'Nuevo Envío',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
   if (user?.role === 'ADMIN') {
     navItems.push({
       path: '/users',
-      label: 'Users',
+      label: 'Usuarios',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -95,8 +95,8 @@ const Layout = ({ children }) => {
               </svg>
             </div>
             <div>
-              <h1 className="text-white font-bold" style={{ fontSize: '18px' }}>DeliveryMS</h1>
-              <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '12px' }}>Management System</p>
+              <h1 className="text-white font-bold" style={{ fontSize: '18px' }}>QuetzalEnvios</h1>
+              <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '12px' }}>Sistema de Envíos</p>
             </div>
           </div>
         </div>
@@ -214,7 +214,7 @@ const Layout = ({ children }) => {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
             </svg>
-            Sign Out
+            Cerrar Sesión
           </button>
         </div>
       </aside>

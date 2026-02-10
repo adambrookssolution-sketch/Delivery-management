@@ -5,43 +5,43 @@ import toast from 'react-hot-toast';
 
 const STATUS_CONFIG = {
   PENDING: {
-    label: 'Pending',
+    label: 'Pendiente',
     bg: 'rgba(234, 179, 8, 0.15)',
     border: 'rgba(234, 179, 8, 0.3)',
     color: '#facc15'
   },
   PICKED_UP: {
-    label: 'Picked Up',
+    label: 'Recogido',
     bg: 'rgba(59, 130, 246, 0.15)',
     border: 'rgba(59, 130, 246, 0.3)',
     color: '#60a5fa'
   },
   IN_TRANSIT: {
-    label: 'In Transit',
+    label: 'En Tránsito',
     bg: 'rgba(168, 85, 247, 0.15)',
     border: 'rgba(168, 85, 247, 0.3)',
     color: '#c084fc'
   },
   OUT_FOR_DELIVERY: {
-    label: 'Out for Delivery',
+    label: 'En Camino',
     bg: 'rgba(99, 102, 241, 0.15)',
     border: 'rgba(99, 102, 241, 0.3)',
     color: '#818cf8'
   },
   DELIVERED: {
-    label: 'Delivered',
+    label: 'Entregado',
     bg: 'rgba(34, 197, 94, 0.15)',
     border: 'rgba(34, 197, 94, 0.3)',
     color: '#4ade80'
   },
   FAILED: {
-    label: 'Failed',
+    label: 'Fallido',
     bg: 'rgba(239, 68, 68, 0.15)',
     border: 'rgba(239, 68, 68, 0.3)',
     color: '#f87171'
   },
   RETURNED: {
-    label: 'Returned',
+    label: 'Devuelto',
     bg: 'rgba(107, 114, 128, 0.15)',
     border: 'rgba(107, 114, 128, 0.3)',
     color: '#9ca3af'
@@ -72,7 +72,7 @@ const ShipmentList = () => {
       setShipments(response.data.data);
       setPagination(prev => ({ ...prev, ...response.data.pagination }));
     } catch (error) {
-      toast.error('Error loading shipments');
+      toast.error('Error al cargar envíos');
     } finally {
       setLoading(false);
     }
@@ -107,10 +107,10 @@ const ShipmentList = () => {
       <div style={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#f1f5f9', marginBottom: '8px' }}>
-            Shipments
+            Envíos
           </h1>
           <p style={{ color: 'rgba(148, 163, 184, 0.7)', fontSize: '15px' }}>
-            Manage all shipments
+            Administrar todos los envíos
           </p>
         </div>
         <Link
@@ -132,7 +132,7 @@ const ShipmentList = () => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
           </svg>
-          New Shipment
+          Nuevo Envío
         </Link>
       </div>
 
@@ -158,7 +158,7 @@ const ShipmentList = () => {
               </svg>
               <input
                 type="text"
-                placeholder="Search by tracking, sender or recipient..."
+                placeholder="Buscar por rastreo, remitente o destinatario..."
                 value={filters.search}
                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 style={{ ...inputStyle, width: '100%', paddingLeft: '48px' }}
@@ -173,7 +173,7 @@ const ShipmentList = () => {
             }}
             style={{ ...inputStyle, minWidth: '180px', cursor: 'pointer' }}
           >
-            <option value="">All Status</option>
+            <option value="">Todos los Estados</option>
             {Object.entries(STATUS_CONFIG).map(([key, value]) => (
               <option key={key} value={key}>{value.label}</option>
             ))}
@@ -192,7 +192,7 @@ const ShipmentList = () => {
               transition: 'all 0.2s ease'
             }}
           >
-            Search
+            Buscar
           </button>
         </form>
       </div>
@@ -218,7 +218,7 @@ const ShipmentList = () => {
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                    {['Tracking', 'Sender', 'Recipient', 'Status', 'Driver', 'Date', 'Actions'].map((header) => (
+                    {['Rastreo', 'Remitente', 'Destinatario', 'Estado', 'Conductor', 'Fecha', 'Acciones'].map((header) => (
                       <th
                         key={header}
                         style={{
@@ -303,7 +303,7 @@ const ShipmentList = () => {
                       </td>
                       <td style={{ padding: '18px 20px', fontSize: '14px', color: 'rgba(148, 163, 184, 0.8)' }}>
                         {shipment.driver?.name || (
-                          <span style={{ color: 'rgba(148, 163, 184, 0.4)' }}>Not assigned</span>
+                          <span style={{ color: 'rgba(148, 163, 184, 0.4)' }}>Sin asignar</span>
                         )}
                       </td>
                       <td style={{ padding: '18px 20px', fontSize: '13px', color: 'rgba(148, 163, 184, 0.7)' }}>
@@ -325,7 +325,7 @@ const ShipmentList = () => {
                               transition: 'all 0.2s ease'
                             }}
                           >
-                            View
+                            Ver
                           </Link>
                           <Link
                             to={`/shipments/${shipment.id}/label`}
@@ -341,7 +341,7 @@ const ShipmentList = () => {
                               transition: 'all 0.2s ease'
                             }}
                           >
-                            Label
+                            Etiqueta
                           </Link>
                         </div>
                       </td>
@@ -369,7 +369,7 @@ const ShipmentList = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
                 </div>
-                <p style={{ color: 'rgba(148, 163, 184, 0.6)', fontSize: '15px' }}>No shipments found</p>
+                <p style={{ color: 'rgba(148, 163, 184, 0.6)', fontSize: '15px' }}>No se encontraron envíos</p>
               </div>
             )}
 
@@ -385,8 +385,8 @@ const ShipmentList = () => {
                 }}
               >
                 <p style={{ fontSize: '13px', color: 'rgba(148, 163, 184, 0.7)' }}>
-                  Showing {(pagination.page - 1) * pagination.limit + 1} -{' '}
-                  {Math.min(pagination.page * pagination.limit, pagination.total)} of{' '}
+                  Mostrando {(pagination.page - 1) * pagination.limit + 1} -{' '}
+                  {Math.min(pagination.page * pagination.limit, pagination.total)} de{' '}
                   {pagination.total}
                 </p>
                 <div style={{ display: 'flex', gap: '12px' }}>
@@ -405,7 +405,7 @@ const ShipmentList = () => {
                       transition: 'all 0.2s ease'
                     }}
                   >
-                    Previous
+                    Anterior
                   </button>
                   <button
                     onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
@@ -422,7 +422,7 @@ const ShipmentList = () => {
                       transition: 'all 0.2s ease'
                     }}
                   >
-                    Next
+                    Siguiente
                   </button>
                 </div>
               </div>

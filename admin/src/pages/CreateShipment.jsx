@@ -83,9 +83,9 @@ const CreateShipment = () => {
       setQrCode(qrResponse.data.data.qrCode);
       setCreatedShipment(shipment);
 
-      toast.success('Shipment created successfully!');
+      toast.success('¡Envío creado exitosamente!');
     } catch (error) {
-      const message = error.response?.data?.message || 'Error creating shipment';
+      const message = error.response?.data?.message || 'Error al crear envío';
       toast.error(message);
     } finally {
       setLoading(false);
@@ -151,10 +151,10 @@ const CreateShipment = () => {
           </div>
 
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#f1f5f9', marginBottom: '8px' }}>
-            Shipment Created!
+            ¡Envío Creado!
           </h1>
           <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '15px', marginBottom: '32px' }}>
-            The shipment has been registered successfully
+            El envío ha sido registrado exitosamente
           </p>
 
           {/* Tracking Number */}
@@ -168,7 +168,7 @@ const CreateShipment = () => {
             }}
           >
             <p style={{ color: 'rgba(148, 163, 184, 0.7)', fontSize: '12px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Tracking Number
+              Número de Rastreo
             </p>
             <p style={{ fontSize: '24px', fontFamily: 'monospace', fontWeight: '700', color: '#60a5fa' }}>
               {createdShipment.trackingNumber}
@@ -179,7 +179,7 @@ const CreateShipment = () => {
           {qrCode && (
             <div style={{ marginBottom: '24px' }}>
               <p style={{ color: 'rgba(148, 163, 184, 0.7)', fontSize: '13px', marginBottom: '16px' }}>
-                QR Code
+                Código QR
               </p>
               <div
                 style={{
@@ -191,7 +191,7 @@ const CreateShipment = () => {
               >
                 <img
                   src={qrCode}
-                  alt="QR Code"
+                  alt="Código QR"
                   style={{ width: '180px', height: '180px', display: 'block' }}
                 />
               </div>
@@ -210,13 +210,13 @@ const CreateShipment = () => {
               }}
             >
               <p style={{ color: 'rgba(148, 163, 184, 0.7)', fontSize: '12px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Delivery Code
+                Código de Entrega
               </p>
               <p style={{ fontSize: '28px', fontFamily: 'monospace', fontWeight: '700', color: '#facc15', letterSpacing: '0.2em' }}>
                 {createdShipment.deliveryCode}
               </p>
               <p style={{ color: 'rgba(148, 163, 184, 0.6)', fontSize: '12px', marginTop: '12px' }}>
-                The recipient must provide this code to receive the package
+                El destinatario debe proporcionar este código para recibir el paquete
               </p>
             </div>
           )}
@@ -243,7 +243,7 @@ const CreateShipment = () => {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
               </svg>
-              Print Label
+              Imprimir Etiqueta
             </button>
             <button
               onClick={() => {
@@ -283,7 +283,7 @@ const CreateShipment = () => {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
               </svg>
-              Create Another
+              Crear Otro
             </button>
             <button
               onClick={() => navigate('/shipments')}
@@ -299,7 +299,7 @@ const CreateShipment = () => {
                 transition: 'all 0.2s ease'
               }}
             >
-              View All Shipments
+              Ver Todos los Envíos
             </button>
           </div>
         </div>
@@ -312,10 +312,10 @@ const CreateShipment = () => {
       {/* Header */}
       <div style={{ marginBottom: '32px' }}>
         <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#f1f5f9', marginBottom: '8px' }}>
-          New Shipment
+          Nuevo Envío
         </h1>
         <p style={{ color: 'rgba(148, 163, 184, 0.7)', fontSize: '15px' }}>
-          Fill in the details to create a new shipment
+          Complete los datos para crear un nuevo envío
         </p>
       </div>
 
@@ -341,26 +341,26 @@ const CreateShipment = () => {
                 </svg>
               </div>
               <h2 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>
-                Sender Information
+                Información del Remitente
               </h2>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <label style={labelStyle}>Name *</label>
+                <label style={labelStyle}>Nombre *</label>
                 <input
                   type="text"
                   name="senderName"
                   value={formData.senderName}
                   onChange={handleChange}
                   required
-                  placeholder="Full name or company"
+                  placeholder="Nombre completo o empresa"
                   style={inputStyle}
                 />
               </div>
 
               <div>
-                <label style={labelStyle}>Phone *</label>
+                <label style={labelStyle}>Teléfono *</label>
                 <input
                   type="tel"
                   name="senderPhone"
@@ -373,14 +373,14 @@ const CreateShipment = () => {
               </div>
 
               <div>
-                <label style={labelStyle}>Address *</label>
+                <label style={labelStyle}>Dirección *</label>
                 <textarea
                   name="senderAddress"
                   value={formData.senderAddress}
                   onChange={handleChange}
                   required
                   rows={3}
-                  placeholder="Full address"
+                  placeholder="Dirección completa"
                   style={{ ...inputStyle, resize: 'none', minHeight: '90px' }}
                 />
               </div>
@@ -407,26 +407,26 @@ const CreateShipment = () => {
                 </svg>
               </div>
               <h2 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>
-                Recipient Information
+                Información del Destinatario
               </h2>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <label style={labelStyle}>Name *</label>
+                <label style={labelStyle}>Nombre *</label>
                 <input
                   type="text"
                   name="recipientName"
                   value={formData.recipientName}
                   onChange={handleChange}
                   required
-                  placeholder="Full name"
+                  placeholder="Nombre completo"
                   style={inputStyle}
                 />
               </div>
 
               <div>
-                <label style={labelStyle}>Phone *</label>
+                <label style={labelStyle}>Teléfono *</label>
                 <input
                   type="tel"
                   name="recipientPhone"
@@ -439,21 +439,21 @@ const CreateShipment = () => {
               </div>
 
               <div>
-                <label style={labelStyle}>Address *</label>
+                <label style={labelStyle}>Dirección *</label>
                 <textarea
                   name="recipientAddress"
                   value={formData.recipientAddress}
                   onChange={handleChange}
                   required
                   rows={3}
-                  placeholder="Full delivery address"
+                  placeholder="Dirección de entrega completa"
                   style={{ ...inputStyle, resize: 'none', minHeight: '90px' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
-                  <label style={labelStyle}>Latitude</label>
+                  <label style={labelStyle}>Latitud</label>
                   <input
                     type="number"
                     name="recipientLat"
@@ -465,7 +465,7 @@ const CreateShipment = () => {
                   />
                 </div>
                 <div>
-                  <label style={labelStyle}>Longitude</label>
+                  <label style={labelStyle}>Longitud</label>
                   <input
                     type="number"
                     name="recipientLng"
@@ -500,14 +500,14 @@ const CreateShipment = () => {
                 </svg>
               </div>
               <h2 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>
-                Package Information
+                Información del Paquete
               </h2>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
-                  <label style={labelStyle}>Weight (kg)</label>
+                  <label style={labelStyle}>Peso (kg)</label>
                   <input
                     type="number"
                     name="packageWeight"
@@ -520,29 +520,29 @@ const CreateShipment = () => {
                   />
                 </div>
                 <div>
-                  <label style={labelStyle}>Size</label>
+                  <label style={labelStyle}>Tamaño</label>
                   <select
                     name="packageSize"
                     value={formData.packageSize}
                     onChange={handleChange}
                     style={{ ...inputStyle, cursor: 'pointer' }}
                   >
-                    <option value="SMALL">Small</option>
-                    <option value="MEDIUM">Medium</option>
-                    <option value="LARGE">Large</option>
-                    <option value="EXTRA_LARGE">Extra Large</option>
+                    <option value="SMALL">Pequeño</option>
+                    <option value="MEDIUM">Mediano</option>
+                    <option value="LARGE">Grande</option>
+                    <option value="EXTRA_LARGE">Extra Grande</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label style={labelStyle}>Content Description</label>
+                <label style={labelStyle}>Descripción del Contenido</label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
                   rows={2}
-                  placeholder="Description of package contents"
+                  placeholder="Descripción del contenido del paquete"
                   style={{ ...inputStyle, resize: 'none', minHeight: '70px' }}
                 />
               </div>
@@ -570,23 +570,23 @@ const CreateShipment = () => {
                 </svg>
               </div>
               <h2 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>
-                Shipping Options
+                Opciones de Envío
               </h2>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <label style={labelStyle}>Assign Driver</label>
+                <label style={labelStyle}>Asignar Conductor</label>
                 <select
                   name="driverId"
                   value={formData.driverId}
                   onChange={handleChange}
                   style={{ ...inputStyle, cursor: 'pointer' }}
                 >
-                  <option value="">Not assigned</option>
+                  <option value="">Sin asignar</option>
                   {drivers.map((driver) => (
                     <option key={driver.id} value={driver.id}>
-                      {driver.name} ({driver._count?.assignedShipments || 0} active shipments)
+                      {driver.name} ({driver._count?.assignedShipments || 0} envíos activos)
                     </option>
                   ))}
                 </select>
@@ -622,10 +622,10 @@ const CreateShipment = () => {
                     htmlFor="generateDeliveryCode"
                     style={{ fontSize: '14px', color: 'rgba(226, 232, 240, 0.9)', cursor: 'pointer', fontWeight: '500' }}
                   >
-                    Generate delivery verification code
+                    Generar código de verificación de entrega
                   </label>
                   <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginTop: '6px' }}>
-                    If enabled, the recipient must provide a 6-digit code to receive the package
+                    Si se activa, el destinatario deberá proporcionar un código de 6 dígitos para recibir el paquete
                   </p>
                 </div>
               </div>
@@ -650,7 +650,7 @@ const CreateShipment = () => {
               transition: 'all 0.2s ease'
             }}
           >
-            Cancel
+            Cancelar
           </button>
           <button
             type="submit"
@@ -677,14 +677,14 @@ const CreateShipment = () => {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Creating...
+                Creando...
               </>
             ) : (
               <>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
-                Create Shipment
+                Crear Envío
               </>
             )}
           </button>

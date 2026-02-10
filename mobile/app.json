@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DeliveryMS Driver",
-    "slug": "deliveryms-driver",
+    "name": "QuetzalEnvios Conductor",
+    "slug": "quetzalenvios-conductor",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

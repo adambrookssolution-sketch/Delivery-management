@@ -23,7 +23,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: 'Delivery Management API',
+  customSiteTitle: 'QuetzalEnvios API',
 }));
 
 // API routes
@@ -33,7 +33,7 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'Delivery Management API',
+    message: 'QuetzalEnvios API',
     version: '1.0.0',
     documentation: '/api-docs',
     health: '/api/health',
@@ -48,7 +48,7 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log('');
   console.log('🚀 ========================================');
-  console.log('   Delivery Management API Server');
+  console.log('   QuetzalEnvios API Server');
   console.log('🚀 ========================================');
   console.log('');
   console.log(`   📡 Server:      http://localhost:${PORT}`);

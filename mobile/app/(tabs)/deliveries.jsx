@@ -15,10 +15,10 @@ import { shipmentAPI } from '../../services/api';
 import DeliveryCard from '../../components/DeliveryCard';
 
 const FILTERS = [
-  { key: 'ALL', label: 'All' },
-  { key: 'PENDING', label: 'Pending' },
-  { key: 'ACTIVE', label: 'Active' },
-  { key: 'DELIVERED', label: 'Delivered' },
+  { key: 'ALL', label: 'Todos' },
+  { key: 'PENDING', label: 'Pendiente' },
+  { key: 'ACTIVE', label: 'Activo' },
+  { key: 'DELIVERED', label: 'Entregado' },
 ];
 
 export default function DeliveriesScreen() {
@@ -34,7 +34,7 @@ export default function DeliveriesScreen() {
       setShipments(res.data.data || []);
     } catch (error) {
       if (error.message === 'Network Error') {
-        Alert.alert('No Connection', 'Please check your internet connection and try again.');
+        Alert.alert('Sin Conexión', 'Por favor verifique su conexión a internet e intente de nuevo.');
       }
       console.error('Failed to load shipments:', error);
     } finally {
@@ -74,8 +74,8 @@ export default function DeliveriesScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>My Deliveries</Text>
-        <Text style={styles.count}>{filteredShipments.length} shipments</Text>
+        <Text style={styles.title}>Mis Entregas</Text>
+        <Text style={styles.count}>{filteredShipments.length} envíos</Text>
       </View>
 
       {/* Filters */}
@@ -119,11 +119,11 @@ export default function DeliveriesScreen() {
         ListEmptyComponent={
           <View style={styles.emptyState}>
             <Ionicons name="cube-outline" size={56} color="#64748b" />
-            <Text style={styles.emptyTitle}>No Deliveries</Text>
+            <Text style={styles.emptyTitle}>Sin Entregas</Text>
             <Text style={styles.emptyText}>
               {activeFilter === 'ALL'
-                ? 'No shipments assigned to you yet'
-                : `No ${FILTERS.find((f) => f.key === activeFilter)?.label.toLowerCase()} deliveries`}
+                ? 'Aún no tienes envíos asignados'
+                : `No hay entregas ${FILTERS.find((f) => f.key === activeFilter)?.label.toLowerCase()}`}
             </Text>
           </View>
         }

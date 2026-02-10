@@ -4,13 +4,13 @@ import { shipmentAPI } from '../services/api';
 import toast from 'react-hot-toast';
 
 const STATUS_CONFIG = {
-  PENDING: { label: 'Pending', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.15)' },
-  PICKED_UP: { label: 'Picked Up', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.15)' },
-  IN_TRANSIT: { label: 'In Transit', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.15)' },
-  OUT_FOR_DELIVERY: { label: 'Out for Delivery', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.15)' },
-  DELIVERED: { label: 'Delivered', color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)' },
-  FAILED: { label: 'Failed', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.15)' },
-  RETURNED: { label: 'Returned', color: '#6b7280', bg: 'rgba(107, 114, 128, 0.15)' },
+  PENDING: { label: 'Pendiente', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.15)' },
+  PICKED_UP: { label: 'Recogido', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.15)' },
+  IN_TRANSIT: { label: 'En Tránsito', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.15)' },
+  OUT_FOR_DELIVERY: { label: 'En Camino', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.15)' },
+  DELIVERED: { label: 'Entregado', color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)' },
+  FAILED: { label: 'Fallido', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.15)' },
+  RETURNED: { label: 'Devuelto', color: '#6b7280', bg: 'rgba(107, 114, 128, 0.15)' },
 };
 
 const Dashboard = () => {
@@ -54,7 +54,7 @@ const Dashboard = () => {
         delivered: deliveredRes.data.pagination.total,
       });
     } catch (error) {
-      toast.error('Failed to load data');
+      toast.error('Error al cargar datos');
     } finally {
       setLoading(false);
     }
@@ -80,7 +80,7 @@ const Dashboard = () => {
 
   const statCards = [
     {
-      label: 'Total Shipments',
+      label: 'Total de Envíos',
       value: stats.total,
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,7 +91,7 @@ const Dashboard = () => {
       shadowColor: 'rgba(59, 130, 246, 0.4)'
     },
     {
-      label: 'Pending',
+      label: 'Pendientes',
       value: stats.pending,
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ const Dashboard = () => {
       shadowColor: 'rgba(245, 158, 11, 0.4)'
     },
     {
-      label: 'In Transit',
+      label: 'En Tránsito',
       value: stats.inTransit,
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +113,7 @@ const Dashboard = () => {
       shadowColor: 'rgba(139, 92, 246, 0.4)'
     },
     {
-      label: 'Delivered',
+      label: 'Entregados',
       value: stats.delivered,
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,10 +130,10 @@ const Dashboard = () => {
       {/* Header */}
       <div style={{ marginBottom: '32px' }}>
         <h1 className="text-white font-bold" style={{ fontSize: '28px', marginBottom: '8px' }}>
-          Dashboard
+          Panel Principal
         </h1>
         <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '15px' }}>
-          Welcome back! Here's your delivery overview.
+          ¡Bienvenido! Aquí está el resumen de entregas.
         </p>
       </div>
 
@@ -204,10 +204,10 @@ const Dashboard = () => {
         >
           <div>
             <h2 className="text-white font-semibold" style={{ fontSize: '18px' }}>
-              Recent Shipments
+              Envíos Recientes
             </h2>
             <p style={{ color: 'rgba(148, 163, 184, 0.6)', fontSize: '13px', marginTop: '4px' }}>
-              Latest delivery activities
+              Actividad de entregas reciente
             </p>
           </div>
           <Link
@@ -227,7 +227,7 @@ const Dashboard = () => {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
             </svg>
-            New Shipment
+            Nuevo Envío
           </Link>
         </div>
 
@@ -247,7 +247,7 @@ const Dashboard = () => {
                     letterSpacing: '0.05em'
                   }}
                 >
-                  Tracking
+                  Rastreo
                 </th>
                 <th
                   style={{
@@ -260,7 +260,7 @@ const Dashboard = () => {
                     letterSpacing: '0.05em'
                   }}
                 >
-                  Recipient
+                  Destinatario
                 </th>
                 <th
                   style={{
@@ -273,7 +273,7 @@ const Dashboard = () => {
                     letterSpacing: '0.05em'
                   }}
                 >
-                  Status
+                  Estado
                 </th>
                 <th
                   style={{
@@ -286,7 +286,7 @@ const Dashboard = () => {
                     letterSpacing: '0.05em'
                   }}
                 >
-                  Date
+                  Fecha
                 </th>
                 <th
                   style={{
@@ -299,7 +299,7 @@ const Dashboard = () => {
                     letterSpacing: '0.05em'
                   }}
                 >
-                  Actions
+                  Acciones
                 </th>
               </tr>
             </thead>
@@ -378,7 +378,7 @@ const Dashboard = () => {
                         gap: '6px'
                       }}
                     >
-                      View
+                      Ver
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
                       </svg>
@@ -407,7 +407,7 @@ const Dashboard = () => {
               </svg>
             </div>
             <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '15px', marginBottom: '20px' }}>
-              No shipments yet
+              Aún no hay envíos
             </p>
             <Link
               to="/shipments/new"
@@ -422,7 +422,7 @@ const Dashboard = () => {
                 gap: '8px'
               }}
             >
-              Create First Shipment
+              Crear Primer Envío
             </Link>
           </div>
         )}

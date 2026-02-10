@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native';
 
 const STATUS_CONFIG = {
-  PENDING: { label: 'Pending', color: '#f59e0b', bg: 'rgba(245,158,11,0.15)' },
-  PICKED_UP: { label: 'Picked Up', color: '#3b82f6', bg: 'rgba(59,130,246,0.15)' },
-  IN_TRANSIT: { label: 'In Transit', color: '#8b5cf6', bg: 'rgba(139,92,246,0.15)' },
-  OUT_FOR_DELIVERY: { label: 'Out for Delivery', color: '#06b6d4', bg: 'rgba(6,182,212,0.15)' },
-  DELIVERED: { label: 'Delivered', color: '#10b981', bg: 'rgba(16,185,129,0.15)' },
-  FAILED: { label: 'Failed', color: '#ef4444', bg: 'rgba(239,68,68,0.15)' },
-  RETURNED: { label: 'Returned', color: '#6b7280', bg: 'rgba(107,114,128,0.15)' },
+  PENDING: { label: 'Pendiente', color: '#f59e0b', bg: 'rgba(245,158,11,0.15)' },
+  PICKED_UP: { label: 'Recogido', color: '#3b82f6', bg: 'rgba(59,130,246,0.15)' },
+  IN_TRANSIT: { label: 'En Tránsito', color: '#8b5cf6', bg: 'rgba(139,92,246,0.15)' },
+  OUT_FOR_DELIVERY: { label: 'En Camino', color: '#06b6d4', bg: 'rgba(6,182,212,0.15)' },
+  DELIVERED: { label: 'Entregado', color: '#10b981', bg: 'rgba(16,185,129,0.15)' },
+  FAILED: { label: 'Fallido', color: '#ef4444', bg: 'rgba(239,68,68,0.15)' },
+  RETURNED: { label: 'Devuelto', color: '#6b7280', bg: 'rgba(107,114,128,0.15)' },
 };
 
 export default function StatusBadge({ status, size = 'small' }) {

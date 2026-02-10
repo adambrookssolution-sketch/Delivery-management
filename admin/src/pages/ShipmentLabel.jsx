@@ -78,10 +78,10 @@ const ShipmentLabel = () => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
-            Back to details
+            Volver a detalles
           </button>
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#f1f5f9' }}>
-            Shipping Label 4x6
+            Etiqueta de Envío 4x6
           </h1>
         </div>
         <button
@@ -104,7 +104,7 @@ const ShipmentLabel = () => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
           </svg>
-          Print Label
+          Imprimir Etiqueta
         </button>
       </div>
 
@@ -130,9 +130,9 @@ const ShipmentLabel = () => {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
-                DeliveryMS
+                QuetzalEnvios
               </h1>
-              <p style={{ fontSize: '11px', color: '#666', margin: '2px 0 0 0' }}>Delivery Management System</p>
+              <p style={{ fontSize: '11px', color: '#666', margin: '2px 0 0 0' }}>Sistema de Gestión de Envíos</p>
             </div>
             <div>
               <img
@@ -145,7 +145,7 @@ const ShipmentLabel = () => {
 
           {/* Tracking Number - Large */}
           <div style={{ background: '#000', color: '#fff', textAlign: 'center', padding: '8px', marginBottom: '12px' }}>
-            <p style={{ fontSize: '10px', margin: 0, letterSpacing: '0.1em' }}>TRACKING NUMBER</p>
+            <p style={{ fontSize: '10px', margin: 0, letterSpacing: '0.1em' }}>NÚMERO DE RASTREO</p>
             <p style={{ fontSize: '16px', fontFamily: 'monospace', fontWeight: 'bold', letterSpacing: '0.1em', margin: '4px 0 0 0' }}>
               {labelData.trackingNumber}
             </p>
@@ -153,7 +153,7 @@ const ShipmentLabel = () => {
 
           {/* From Section */}
           <div style={{ marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid #d1d5db' }}>
-            <p style={{ fontSize: '10px', fontWeight: 'bold', color: '#666', marginBottom: '4px' }}>FROM:</p>
+            <p style={{ fontSize: '10px', fontWeight: 'bold', color: '#666', marginBottom: '4px' }}>DE:</p>
             <p style={{ fontSize: '13px', fontWeight: 'bold', color: '#000', margin: '0 0 2px 0' }}>{labelData.sender.name}</p>
             <p style={{ fontSize: '11px', color: '#000', margin: '0 0 2px 0' }}>{labelData.sender.phone}</p>
             <p style={{ fontSize: '11px', color: '#000', margin: 0, lineHeight: '1.3' }}>{labelData.sender.address}</p>
@@ -161,7 +161,7 @@ const ShipmentLabel = () => {
 
           {/* To Section - Larger */}
           <div style={{ marginBottom: '12px', paddingBottom: '8px', borderBottom: '2px solid #000' }}>
-            <p style={{ fontSize: '10px', fontWeight: 'bold', color: '#666', marginBottom: '4px' }}>TO:</p>
+            <p style={{ fontSize: '10px', fontWeight: 'bold', color: '#666', marginBottom: '4px' }}>PARA:</p>
             <p style={{ fontSize: '15px', fontWeight: 'bold', color: '#000', margin: '0 0 2px 0' }}>{labelData.recipient.name}</p>
             <p style={{ fontSize: '13px', fontWeight: '600', color: '#000', margin: '0 0 2px 0' }}>{labelData.recipient.phone}</p>
             <p style={{ fontSize: '13px', fontWeight: '500', color: '#000', margin: 0, lineHeight: '1.3' }}>{labelData.recipient.address}</p>
@@ -170,17 +170,17 @@ const ShipmentLabel = () => {
           {/* Package Info */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', marginBottom: '12px', textAlign: 'center' }}>
             <div style={{ border: '1px solid #d1d5db', padding: '6px' }}>
-              <p style={{ fontSize: '9px', color: '#666', margin: 0 }}>WEIGHT</p>
+              <p style={{ fontSize: '9px', color: '#666', margin: 0 }}>PESO</p>
               <p style={{ fontSize: '12px', fontWeight: 'bold', color: '#000', margin: '2px 0 0 0' }}>
                 {labelData.package.weight ? `${labelData.package.weight} kg` : '-'}
               </p>
             </div>
             <div style={{ border: '1px solid #d1d5db', padding: '6px' }}>
-              <p style={{ fontSize: '9px', color: '#666', margin: 0 }}>SIZE</p>
+              <p style={{ fontSize: '9px', color: '#666', margin: 0 }}>TAMAÑO</p>
               <p style={{ fontSize: '12px', fontWeight: 'bold', color: '#000', margin: '2px 0 0 0' }}>{labelData.package.size || '-'}</p>
             </div>
             <div style={{ border: '1px solid #d1d5db', padding: '6px' }}>
-              <p style={{ fontSize: '9px', color: '#666', margin: 0 }}>DATE</p>
+              <p style={{ fontSize: '9px', color: '#666', margin: 0 }}>FECHA</p>
               <p style={{ fontSize: '12px', fontWeight: 'bold', color: '#000', margin: '2px 0 0 0' }}>
                 {new Date(labelData.createdAt).toLocaleDateString()}
               </p>
@@ -190,7 +190,7 @@ const ShipmentLabel = () => {
           {/* Description */}
           {labelData.package.description && (
             <div style={{ marginBottom: '12px', padding: '8px', background: '#f3f4f6', borderRadius: '4px' }}>
-              <p style={{ fontSize: '9px', color: '#666', margin: '0 0 2px 0' }}>CONTENTS:</p>
+              <p style={{ fontSize: '9px', color: '#666', margin: '0 0 2px 0' }}>CONTENIDO:</p>
               <p style={{ fontSize: '11px', color: '#000', margin: 0 }}>{labelData.package.description}</p>
             </div>
           )}
@@ -221,7 +221,7 @@ const ShipmentLabel = () => {
           {/* Footer */}
           <div style={{ textAlign: 'center', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #d1d5db' }}>
             <p style={{ fontSize: '10px', color: '#666', margin: 0 }}>
-              Track your shipment at: tracking.deliveryms.com
+              Rastree su envío en: tracking.quetzalenvios.com
             </p>
           </div>
         </div>
@@ -245,13 +245,13 @@ const ShipmentLabel = () => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          Print Instructions
+          Instrucciones de Impresión
         </h3>
         <ul style={{ fontSize: '13px', color: 'rgba(148, 163, 184, 0.9)', margin: 0, paddingLeft: '20px' }}>
-          <li style={{ marginBottom: '8px' }}>Use 4x6 inch label paper (102 x 152 mm)</li>
-          <li style={{ marginBottom: '8px' }}>Set printer to print without margins</li>
-          <li style={{ marginBottom: '8px' }}>Verify that QR code and barcode are readable</li>
-          <li>Attach label to a visible area of the package</li>
+          <li style={{ marginBottom: '8px' }}>Use papel de etiqueta 4x6 pulgadas (102 x 152 mm)</li>
+          <li style={{ marginBottom: '8px' }}>Configure la impresora para imprimir sin márgenes</li>
+          <li style={{ marginBottom: '8px' }}>Verifique que el código QR y el código de barras sean legibles</li>
+          <li>Pegue la etiqueta en un área visible del paquete</li>
         </ul>
       </div>
 

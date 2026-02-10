@@ -4,13 +4,13 @@ import toast from 'react-hot-toast';
 
 const ROLE_CONFIG = {
   ADMIN: { label: 'Admin', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.15)', border: 'rgba(139, 92, 246, 0.3)' },
-  DRIVER: { label: 'Driver', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)' },
-  DISPATCHER: { label: 'Dispatcher', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.15)', border: 'rgba(245, 158, 11, 0.3)' },
+  DRIVER: { label: 'Conductor', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.15)', border: 'rgba(59, 130, 246, 0.3)' },
+  DISPATCHER: { label: 'Despachador', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.15)', border: 'rgba(245, 158, 11, 0.3)' },
 };
 
 const STATUS_CONFIG = {
-  active: { label: 'Active', color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)' },
-  inactive: { label: 'Inactive', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.3)' },
+  active: { label: 'Activo', color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)' },
+  inactive: { label: 'Inactivo', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.3)' },
 };
 
 const Users = () => {
@@ -52,7 +52,7 @@ const Users = () => {
         totalPages: response.data.pagination.totalPages,
       }));
     } catch (error) {
-      toast.error('Failed to load users');
+      toast.error('Error al cargar usuarios');
     } finally {
       setLoading(false);
     }
@@ -96,26 +96,26 @@ const Users = () => {
         const updateData = { ...formData };
         if (!updateData.password) delete updateData.password;
         await userAPI.update(editingUser.id, updateData);
-        toast.success('User updated successfully');
+        toast.success('Usuario actualizado exitosamente');
       } else {
         await userAPI.create(formData);
-        toast.success('User created successfully');
+        toast.success('Usuario creado exitosamente');
       }
       setShowModal(false);
       fetchUsers();
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Operation failed');
+      toast.error(error.response?.data?.message || 'Operación fallida');
     }
   };
 
   const handleDelete = async (user) => {
-    if (!window.confirm(`Are you sure you want to deactivate "${user.name}"?`)) return;
+    if (!window.confirm(`Está seguro que desea desactivar "${user.name}"?`)) return;
     try {
       await userAPI.delete(user.id);
-      toast.success('User deactivated');
+      toast.success('Usuario desactivado');
       fetchUsers();
     } catch (error) {
-      toast.error('Failed to deactivate user');
+      toast.error('Error al desactivar usuario');
     }
   };
 
@@ -143,10 +143,10 @@ const Users = () => {
       <div className="flex items-center justify-between" style={{ marginBottom: '32px' }}>
         <div>
           <h1 className="text-white font-bold" style={{ fontSize: '28px', marginBottom: '8px' }}>
-            Users
+            Usuarios
           </h1>
           <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '15px' }}>
-            Manage system users and drivers
+            Administrar usuarios y conductores
           </p>
         </div>
         <button
@@ -168,7 +168,7 @@ const Users = () => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
           </svg>
-          Add User
+          Agregar Usuario
         </button>
       </div>
 
@@ -198,7 +198,7 @@ const Users = () => {
               </svg>
               <input
                 type="text"
-                placeholder="Search by name or email..."
+                placeholder="Buscar por nombre o correo..."
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
                 style={{
@@ -232,10 +232,10 @@ const Users = () => {
                 cursor: 'pointer'
               }}
             >
-              <option value="">All Roles</option>
+              <option value="">Todos los Roles</option>
               <option value="ADMIN">Admin</option>
-              <option value="DRIVER">Driver</option>
-              <option value="DISPATCHER">Dispatcher</option>
+              <option value="DRIVER">Conductor</option>
+              <option value="DISPATCHER">Despachador</option>
             </select>
           </div>
 
@@ -256,9 +256,9 @@ const Users = () => {
                 cursor: 'pointer'
               }}
             >
-              <option value="">All Status</option>
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
+              <option value="">Todos los Estados</option>
+              <option value="true">Activo</option>
+              <option value="false">Inactivo</option>
             </select>
           </div>
 
@@ -276,7 +276,7 @@ const Users = () => {
                 cursor: 'pointer'
               }}
             >
-              Clear
+              Limpiar
             </button>
           )}
         </div>
@@ -296,12 +296,12 @@ const Users = () => {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                {['User', 'Email', 'Phone', 'Role', 'Status', 'Created', 'Actions'].map((header) => (
+                {['Usuario', 'Correo', 'Teléfono', 'Rol', 'Estado', 'Creado', 'Acciones'].map((header) => (
                   <th
                     key={header}
                     style={{
                       padding: '16px 20px',
-                      textAlign: header === 'Actions' ? 'right' : 'left',
+                      textAlign: header === 'Acciones' ? 'right' : 'left',
                       fontSize: '12px',
                       fontWeight: '600',
                       color: 'rgba(148, 163, 184, 0.8)',
@@ -382,7 +382,7 @@ const Users = () => {
                         border: `1px solid ${user.isActive ? STATUS_CONFIG.active.border : STATUS_CONFIG.inactive.border}`
                       }}
                     >
-                      {user.isActive ? 'Active' : 'Inactive'}
+                      {user.isActive ? 'Activo' : 'Inactivo'}
                     </span>
                   </td>
                   <td style={{ padding: '16px 20px' }}>
@@ -411,7 +411,7 @@ const Users = () => {
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
-                        Edit
+                        Editar
                       </button>
                       {user.isActive && (
                         <button
@@ -433,7 +433,7 @@ const Users = () => {
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
                           </svg>
-                          Deactivate
+                          Desactivar
                         </button>
                       )}
                     </div>
@@ -461,7 +461,7 @@ const Users = () => {
               </svg>
             </div>
             <p style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '15px', marginBottom: '20px' }}>
-              No users found
+              No se encontraron usuarios
             </p>
             <button
               onClick={openCreateModal}
@@ -478,7 +478,7 @@ const Users = () => {
                 cursor: 'pointer'
               }}
             >
-              Add First User
+              Agregar Primer Usuario
             </button>
           </div>
         )}
@@ -493,7 +493,7 @@ const Users = () => {
             }}
           >
             <p style={{ color: 'rgba(148, 163, 184, 0.7)', fontSize: '14px' }}>
-              Showing {((pagination.page - 1) * pagination.limit) + 1} to {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} users
+              Mostrando {((pagination.page - 1) * pagination.limit) + 1} a {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} usuarios
             </p>
             <div className="flex items-center" style={{ gap: '8px' }}>
               <button
@@ -509,10 +509,10 @@ const Users = () => {
                   cursor: pagination.page === 1 ? 'not-allowed' : 'pointer'
                 }}
               >
-                Previous
+                Anterior
               </button>
               <span style={{ color: 'rgba(148, 163, 184, 0.8)', fontSize: '14px', padding: '0 12px' }}>
-                Page {pagination.page} of {pagination.totalPages}
+                Página {pagination.page} de {pagination.totalPages}
               </span>
               <button
                 onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
@@ -527,7 +527,7 @@ const Users = () => {
                   cursor: pagination.page === pagination.totalPages ? 'not-allowed' : 'pointer'
                 }}
               >
-                Next
+                Siguiente
               </button>
             </div>
           </div>
@@ -559,7 +559,7 @@ const Users = () => {
           >
             <div className="flex items-center justify-between" style={{ marginBottom: '28px' }}>
               <h2 className="text-white font-bold" style={{ fontSize: '22px' }}>
-                {editingUser ? 'Edit User' : 'Create User'}
+                {editingUser ? 'Editar Usuario' : 'Crear Usuario'}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
@@ -587,7 +587,7 @@ const Users = () => {
                 {/* Name */}
                 <div>
                   <label style={{ display: 'block', color: 'rgba(148, 163, 184, 0.9)', fontSize: '13px', fontWeight: '500', marginBottom: '8px' }}>
-                    Full Name *
+                    Nombre Completo *
                   </label>
                   <input
                     type="text"
@@ -605,14 +605,14 @@ const Users = () => {
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
-                    placeholder="Enter full name"
+                    placeholder="Ingrese nombre completo"
                   />
                 </div>
 
                 {/* Email */}
                 <div>
                   <label style={{ display: 'block', color: 'rgba(148, 163, 184, 0.9)', fontSize: '13px', fontWeight: '500', marginBottom: '8px' }}>
-                    Email *
+                    Correo *
                   </label>
                   <input
                     type="email"
@@ -637,7 +637,7 @@ const Users = () => {
                 {/* Password */}
                 <div>
                   <label style={{ display: 'block', color: 'rgba(148, 163, 184, 0.9)', fontSize: '13px', fontWeight: '500', marginBottom: '8px' }}>
-                    Password {editingUser ? '(leave blank to keep current)' : '*'}
+                    Contraseña {editingUser ? '(deje en blanco para mantener actual)' : '*'}
                   </label>
                   <input
                     type="password"
@@ -655,14 +655,14 @@ const Users = () => {
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
-                    placeholder={editingUser ? '••••••••' : 'Enter password'}
+                    placeholder={editingUser ? '••••••••' : 'Ingrese contraseña'}
                   />
                 </div>
 
                 {/* Phone */}
                 <div>
                   <label style={{ display: 'block', color: 'rgba(148, 163, 184, 0.9)', fontSize: '13px', fontWeight: '500', marginBottom: '8px' }}>
-                    Phone
+                    Teléfono
                   </label>
                   <input
                     type="tel"
@@ -679,7 +679,7 @@ const Users = () => {
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
-                    placeholder="Phone number"
+                    placeholder="Número de teléfono"
                   />
                 </div>
 
@@ -687,7 +687,7 @@ const Users = () => {
                 <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div>
                     <label style={{ display: 'block', color: 'rgba(148, 163, 184, 0.9)', fontSize: '13px', fontWeight: '500', marginBottom: '8px' }}>
-                      Role *
+                      Rol *
                     </label>
                     <select
                       value={formData.role}
@@ -704,14 +704,14 @@ const Users = () => {
                         cursor: 'pointer'
                       }}
                     >
-                      <option value="DRIVER">Driver</option>
-                      <option value="DISPATCHER">Dispatcher</option>
+                      <option value="DRIVER">Conductor</option>
+                      <option value="DISPATCHER">Despachador</option>
                       <option value="ADMIN">Admin</option>
                     </select>
                   </div>
                   <div>
                     <label style={{ display: 'block', color: 'rgba(148, 163, 184, 0.9)', fontSize: '13px', fontWeight: '500', marginBottom: '8px' }}>
-                      Status
+                      Estado
                     </label>
                     <select
                       value={formData.isActive}
@@ -728,8 +728,8 @@ const Users = () => {
                         cursor: 'pointer'
                       }}
                     >
-                      <option value="true">Active</option>
-                      <option value="false">Inactive</option>
+                      <option value="true">Activo</option>
+                      <option value="false">Inactivo</option>
                     </select>
                   </div>
                 </div>
@@ -751,7 +751,7 @@ const Users = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
@@ -767,7 +767,7 @@ const Users = () => {
                     boxShadow: '0 4px 16px rgba(59, 130, 246, 0.3)'
                   }}
                 >
-                  {editingUser ? 'Update User' : 'Create User'}
+                  {editingUser ? 'Actualizar Usuario' : 'Crear Usuario'}
                 </button>
               </div>
             </form>

@@ -26,38 +26,38 @@ export default function ProfileScreen() {
 
   const handleChangePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert('Error', 'Por favor complete todos los campos');
       return;
     }
     if (newPassword !== confirmPassword) {
-      Alert.alert('Error', 'New passwords do not match');
+      Alert.alert('Error', 'Las contraseñas nuevas no coinciden');
       return;
     }
     if (newPassword.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters');
+      Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres');
       return;
     }
 
     setLoading(true);
     try {
       await authAPI.changePassword(currentPassword, newPassword);
-      Alert.alert('Success', 'Password changed successfully');
+      Alert.alert('Éxito', 'Contraseña cambiada exitosamente');
       setShowChangePassword(false);
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
     } catch (error) {
-      Alert.alert('Error', error.response?.data?.message || 'Failed to change password');
+      Alert.alert('Error', error.response?.data?.message || 'Error al cambiar contraseña');
     } finally {
       setLoading(false);
     }
   };
 
   const handleLogout = () => {
-    Alert.alert('Logout', 'Are you sure you want to sign out?', [
-      { text: 'Cancel', style: 'cancel' },
+    Alert.alert('Cerrar Sesión', '¿Está seguro que desea cerrar sesión?', [
+      { text: 'Cancelar', style: 'cancel' },
       {
-        text: 'Sign Out',
+        text: 'Cerrar Sesión',
         style: 'destructive',
         onPress: async () => {
           await logout();
@@ -68,15 +68,15 @@ export default function ProfileScreen() {
   };
 
   const infoItems = [
-    { icon: 'mail', label: 'Email', value: user?.email },
-    { icon: 'call', label: 'Phone', value: user?.phone || 'Not set' },
-    { icon: 'shield-checkmark', label: 'Role', value: user?.role },
+    { icon: 'mail', label: 'Correo', value: user?.email },
+    { icon: 'call', label: 'Teléfono', value: user?.phone || 'No configurado' },
+    { icon: 'shield-checkmark', label: 'Rol', value: user?.role },
   ];
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       {/* Header */}
-      <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>Perfil</Text>
 
       {/* Avatar Card */}
       <View style={styles.avatarCard}>
@@ -115,7 +115,7 @@ export default function ProfileScreen() {
         activeOpacity={0.7}
       >
         <Ionicons name="key" size={20} color="#f59e0b" />
-        <Text style={styles.menuItemText}>Change Password</Text>
+        <Text style={styles.menuItemText}>Cambiar Contraseña</Text>
         <Ionicons
           name={showChangePassword ? 'chevron-up' : 'chevron-down'}
           size={18}
@@ -126,10 +126,10 @@ export default function ProfileScreen() {
       {showChangePassword && (
         <View style={styles.passwordForm}>
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Current Password</Text>
+            <Text style={styles.inputLabel}>Contraseña Actual</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter current password"
+              placeholder="Ingrese contraseña actual"
               placeholderTextColor="#64748b"
               value={currentPassword}
               onChangeText={setCurrentPassword}
@@ -137,10 +137,10 @@ export default function ProfileScreen() {
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>New Password</Text>
+            <Text style={styles.inputLabel}>Nueva Contraseña</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter new password"
+              placeholder="Ingrese nueva contraseña"
               placeholderTextColor="#64748b"
               value={newPassword}
               onChangeText={setNewPassword}
@@ -148,10 +148,10 @@ export default function ProfileScreen() {
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Confirm New Password</Text>
+            <Text style={styles.inputLabel}>Confirmar Nueva Contraseña</Text>
             <TextInput
               style={styles.input}
-              placeholder="Confirm new password"
+              placeholder="Confirmar nueva contraseña"
               placeholderTextColor="#64748b"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
@@ -166,7 +166,7 @@ export default function ProfileScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" size="small" />
             ) : (
-              <Text style={styles.changePasswordBtnText}>Update Password</Text>
+              <Text style={styles.changePasswordBtnText}>Actualizar Contraseña</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -175,11 +175,11 @@ export default function ProfileScreen() {
       {/* Logout */}
       <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout} activeOpacity={0.7}>
         <Ionicons name="log-out" size={20} color="#ef4444" />
-        <Text style={styles.logoutBtnText}>Sign Out</Text>
+        <Text style={styles.logoutBtnText}>Cerrar Sesión</Text>
       </TouchableOpacity>
 
       {/* App Info */}
-      <Text style={styles.appVersion}>DeliveryMS Driver v1.0.0</Text>
+      <Text style={styles.appVersion}>QuetzalEnvios Conductor v1.0.0</Text>
     </ScrollView>
   );
 }

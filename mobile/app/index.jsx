@@ -30,7 +30,7 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
-      setError('Please enter email and password');
+      setError('Por favor ingrese correo y contraseña');
       return;
     }
     setError('');
@@ -39,7 +39,7 @@ export default function LoginScreen() {
       await login(email.trim(), password);
       router.replace('/(tabs)');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      setError(err.response?.data?.message || 'Error al iniciar sesión. Intente de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -64,14 +64,14 @@ export default function LoginScreen() {
           <View style={styles.logoIcon}>
             <Ionicons name="cube" size={36} color="#fff" />
           </View>
-          <Text style={styles.logoTitle}>DeliveryMS</Text>
-          <Text style={styles.logoSubtitle}>Driver App</Text>
+          <Text style={styles.logoTitle}>QuetzalEnvios</Text>
+          <Text style={styles.logoSubtitle}>App Conductor</Text>
         </View>
 
         {/* Form */}
         <View style={styles.form}>
-          <Text style={styles.formTitle}>Sign In</Text>
-          <Text style={styles.formSubtitle}>Enter your credentials to continue</Text>
+          <Text style={styles.formTitle}>Iniciar Sesión</Text>
+          <Text style={styles.formSubtitle}>Ingrese sus credenciales para continuar</Text>
 
           {error ? (
             <View style={styles.errorBox}>
@@ -81,7 +81,7 @@ export default function LoginScreen() {
           ) : null}
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>Correo</Text>
             <View style={styles.inputContainer}>
               <Ionicons name="mail-outline" size={20} color="#64748b" style={styles.inputIcon} />
               <TextInput
@@ -98,12 +98,12 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>Contraseña</Text>
             <View style={styles.inputContainer}>
               <Ionicons name="lock-closed-outline" size={20} color="#64748b" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="Enter password"
+                placeholder="Ingrese contraseña"
                 placeholderTextColor="#64748b"
                 value={password}
                 onChangeText={setPassword}
@@ -124,7 +124,7 @@ export default function LoginScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" size="small" />
             ) : (
-              <Text style={styles.loginButtonText}>Sign In</Text>
+              <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
             )}
           </TouchableOpacity>
         </View>

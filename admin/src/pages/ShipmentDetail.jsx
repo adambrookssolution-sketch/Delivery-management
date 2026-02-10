@@ -5,43 +5,43 @@ import toast from 'react-hot-toast';
 
 const STATUS_CONFIG = {
   PENDING: {
-    label: 'Pending',
+    label: 'Pendiente',
     bg: 'rgba(234, 179, 8, 0.15)',
     border: 'rgba(234, 179, 8, 0.3)',
     color: '#facc15'
   },
   PICKED_UP: {
-    label: 'Picked Up',
+    label: 'Recogido',
     bg: 'rgba(59, 130, 246, 0.15)',
     border: 'rgba(59, 130, 246, 0.3)',
     color: '#60a5fa'
   },
   IN_TRANSIT: {
-    label: 'In Transit',
+    label: 'En Tránsito',
     bg: 'rgba(168, 85, 247, 0.15)',
     border: 'rgba(168, 85, 247, 0.3)',
     color: '#c084fc'
   },
   OUT_FOR_DELIVERY: {
-    label: 'Out for Delivery',
+    label: 'En Camino',
     bg: 'rgba(99, 102, 241, 0.15)',
     border: 'rgba(99, 102, 241, 0.3)',
     color: '#818cf8'
   },
   DELIVERED: {
-    label: 'Delivered',
+    label: 'Entregado',
     bg: 'rgba(34, 197, 94, 0.15)',
     border: 'rgba(34, 197, 94, 0.3)',
     color: '#4ade80'
   },
   FAILED: {
-    label: 'Failed',
+    label: 'Fallido',
     bg: 'rgba(239, 68, 68, 0.15)',
     border: 'rgba(239, 68, 68, 0.3)',
     color: '#f87171'
   },
   RETURNED: {
-    label: 'Returned',
+    label: 'Devuelto',
     bg: 'rgba(107, 114, 128, 0.15)',
     border: 'rgba(107, 114, 128, 0.3)',
     color: '#9ca3af'
@@ -75,7 +75,7 @@ const ShipmentDetail = () => {
       setShipment(shipmentRes.data.data);
       setQrCode(qrRes.data.data.qrCode);
     } catch (error) {
-      toast.error('Error loading shipment');
+      toast.error('Error al cargar envío');
       navigate('/shipments');
     } finally {
       setLoading(false);
@@ -93,23 +93,23 @@ const ShipmentDetail = () => {
 
   const handleAssignDriver = async () => {
     if (!selectedDriver) {
-      toast.error('Please select a driver');
+      toast.error('Por favor seleccione un conductor');
       return;
     }
 
     try {
       await shipmentAPI.assignDriver(id, selectedDriver);
-      toast.success('Driver assigned');
+      toast.success('Conductor asignado');
       setShowAssignModal(false);
       fetchShipment();
     } catch (error) {
-      toast.error('Error assigning driver');
+      toast.error('Error al asignar conductor');
     }
   };
 
   const handleUpdateStatus = async () => {
     if (!selectedStatus) {
-      toast.error('Please select a status');
+      toast.error('Por favor seleccione un estado');
       return;
     }
 
@@ -118,13 +118,13 @@ const ShipmentDetail = () => {
         status: selectedStatus,
         note: statusNote,
       });
-      toast.success('Status updated');
+      toast.success('Estado actualizado');
       setShowStatusModal(false);
       setSelectedStatus('');
       setStatusNote('');
       fetchShipment();
     } catch (error) {
-      toast.error('Error updating status');
+      toast.error('Error al actualizar estado');
     }
   };
 
@@ -195,10 +195,10 @@ const ShipmentDetail = () => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
-            Back to list
+            Volver a la lista
           </button>
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#f1f5f9', marginBottom: '12px' }}>
-            Shipment {shipment.trackingNumber}
+            Envío {shipment.trackingNumber}
           </h1>
           <span
             style={{
@@ -235,7 +235,7 @@ const ShipmentDetail = () => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            Change Status
+            Cambiar Estado
           </button>
           <button
             onClick={() => setShowAssignModal(true)}
@@ -256,7 +256,7 @@ const ShipmentDetail = () => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            Assign Driver
+            Asignar Conductor
           </button>
           <Link
             to={`/shipments/${id}/label`}
@@ -278,7 +278,7 @@ const ShipmentDetail = () => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
             </svg>
-            Print Label
+            Imprimir Etiqueta
           </Link>
         </div>
       </div>
@@ -307,7 +307,7 @@ const ShipmentDetail = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
                   </svg>
                 </div>
-                <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Sender</h3>
+                <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Remitente</h3>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <p style={{ fontSize: '15px', fontWeight: '500', color: '#f1f5f9' }}>{shipment.senderName}</p>
@@ -335,7 +335,7 @@ const ShipmentDetail = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
                 </div>
-                <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Recipient</h3>
+                <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Destinatario</h3>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <p style={{ fontSize: '15px', fontWeight: '500', color: '#f1f5f9' }}>{shipment.recipientName}</p>
@@ -359,7 +359,7 @@ const ShipmentDetail = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    View on Google Maps
+                    Ver en Google Maps
                   </a>
                 )}
               </div>
@@ -385,29 +385,29 @@ const ShipmentDetail = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Package Information</h3>
+              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Información del Paquete</h3>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
               <div>
-                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Weight</p>
+                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Peso</p>
                 <p style={{ fontSize: '15px', fontWeight: '500', color: '#f1f5f9' }}>{shipment.packageWeight ? `${shipment.packageWeight} kg` : '-'}</p>
               </div>
               <div>
-                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Size</p>
+                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tamaño</p>
                 <p style={{ fontSize: '15px', fontWeight: '500', color: '#f1f5f9' }}>{shipment.packageSize || '-'}</p>
               </div>
               <div>
-                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Driver</p>
-                <p style={{ fontSize: '15px', fontWeight: '500', color: shipment.driver?.name ? '#f1f5f9' : 'rgba(148, 163, 184, 0.5)' }}>{shipment.driver?.name || 'Not assigned'}</p>
+                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Conductor</p>
+                <p style={{ fontSize: '15px', fontWeight: '500', color: shipment.driver?.name ? '#f1f5f9' : 'rgba(148, 163, 184, 0.5)' }}>{shipment.driver?.name || 'Sin asignar'}</p>
               </div>
               <div>
-                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Delivery Code</p>
+                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Código de Entrega</p>
                 <p style={{ fontSize: '15px', fontWeight: '600', fontFamily: 'monospace', color: '#facc15' }}>{shipment.deliveryCode || '-'}</p>
               </div>
             </div>
             {shipment.description && (
               <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Description</p>
+                <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Descripción</p>
                 <p style={{ fontSize: '14px', color: 'rgba(226, 232, 240, 0.9)' }}>{shipment.description}</p>
               </div>
             )}
@@ -432,7 +432,7 @@ const ShipmentDetail = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                 </svg>
               </div>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Status History</h3>
+              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9' }}>Historial de Estados</h3>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
               {shipment.statusHistory?.map((history, index) => (
@@ -492,7 +492,7 @@ const ShipmentDetail = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {/* QR Code */}
           <div style={{ ...cardStyle, textAlign: 'center' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>QR Code</h3>
+            <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Código QR</h3>
             {qrCode && (
               <div
                 style={{
@@ -529,10 +529,10 @@ const ShipmentDetail = () => {
           {/* Delivery Evidence */}
           {shipment.status === 'DELIVERED' && (
             <div style={cardStyle}>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Delivery Evidence</h3>
+              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Evidencia de Entrega</h3>
               {shipment.photoUrl && (
                 <div style={{ marginBottom: '16px' }}>
-                  <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Photo</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Foto</p>
                   <img
                     src={shipment.photoUrl}
                     alt="Delivery photo"
@@ -542,7 +542,7 @@ const ShipmentDetail = () => {
               )}
               {shipment.signatureUrl && (
                 <div style={{ marginBottom: '16px' }}>
-                  <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Signature</p>
+                  <p style={{ fontSize: '12px', color: 'rgba(148, 163, 184, 0.6)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Firma</p>
                   <img
                     src={shipment.signatureUrl}
                     alt="Signature"
@@ -552,7 +552,7 @@ const ShipmentDetail = () => {
               )}
               {shipment.deliveredAt && (
                 <p style={{ fontSize: '13px', color: 'rgba(148, 163, 184, 0.7)' }}>
-                  Delivered on: {new Date(shipment.deliveredAt).toLocaleString()}
+                  Entregado el: {new Date(shipment.deliveredAt).toLocaleString()}
                 </p>
               )}
             </div>
@@ -584,13 +584,13 @@ const ShipmentDetail = () => {
               maxWidth: '400px'
             }}
           >
-            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Assign Driver</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Asignar Conductor</h3>
             <select
               value={selectedDriver}
               onChange={(e) => setSelectedDriver(e.target.value)}
               style={{ ...inputStyle, marginBottom: '20px', cursor: 'pointer' }}
             >
-              <option value="">Select a driver</option>
+              <option value="">Seleccione un conductor</option>
               {drivers.map((driver) => (
                 <option key={driver.id} value={driver.id}>
                   {driver.name}
@@ -610,7 +610,7 @@ const ShipmentDetail = () => {
                   cursor: 'pointer'
                 }}
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 onClick={handleAssignDriver}
@@ -625,7 +625,7 @@ const ShipmentDetail = () => {
                   cursor: 'pointer'
                 }}
               >
-                Assign
+                Asignar
               </button>
             </div>
           </div>
@@ -656,13 +656,13 @@ const ShipmentDetail = () => {
               maxWidth: '400px'
             }}
           >
-            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Change Status</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#f1f5f9', marginBottom: '20px' }}>Cambiar Estado</h3>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
               style={{ ...inputStyle, marginBottom: '16px', cursor: 'pointer' }}
             >
-              <option value="">Select a status</option>
+              <option value="">Seleccione un estado</option>
               {Object.entries(STATUS_CONFIG).map(([key, value]) => (
                 <option key={key} value={key}>{value.label}</option>
               ))}
@@ -670,7 +670,7 @@ const ShipmentDetail = () => {
             <textarea
               value={statusNote}
               onChange={(e) => setStatusNote(e.target.value)}
-              placeholder="Note (optional)"
+              placeholder="Nota (opcional)"
               rows={3}
               style={{ ...inputStyle, marginBottom: '20px', resize: 'none', minHeight: '80px' }}
             />
@@ -687,7 +687,7 @@ const ShipmentDetail = () => {
                   cursor: 'pointer'
                 }}
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 onClick={handleUpdateStatus}
@@ -702,7 +702,7 @@ const ShipmentDetail = () => {
                   cursor: 'pointer'
                 }}
               >
-                Update
+                Actualizar
               </button>
             </div>
           </div>

@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Delivery Management API',
+      title: 'QuetzalEnvios API',
       version: '1.0.0',
-      description: 'API documentation for Delivery Management System',
+      description: 'Documentacion API para QuetzalEnvios',
       contact: {
         name: 'API Support',
       },

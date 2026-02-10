@@ -28,7 +28,7 @@ export default function HomeScreen() {
       setShipments(res.data.data || []);
     } catch (error) {
       if (error.message === 'Network Error') {
-        Alert.alert('No Connection', 'Please check your internet connection and try again.');
+        Alert.alert('Sin Conexión', 'Por favor verifique su conexión a internet e intente de nuevo.');
       }
       console.error('Failed to load shipments:', error);
     } finally {
@@ -61,9 +61,9 @@ export default function HomeScreen() {
 
   const statCards = [
     { label: 'Total', value: stats.total, icon: 'cube', color: '#3b82f6', bg: 'rgba(59,130,246,0.15)' },
-    { label: 'Pending', value: stats.pending, icon: 'time', color: '#f59e0b', bg: 'rgba(245,158,11,0.15)' },
-    { label: 'In Delivery', value: stats.inDelivery, icon: 'car', color: '#8b5cf6', bg: 'rgba(139,92,246,0.15)' },
-    { label: 'Delivered', value: stats.delivered, icon: 'checkmark-circle', color: '#10b981', bg: 'rgba(16,185,129,0.15)' },
+    { label: 'Pendiente', value: stats.pending, icon: 'time', color: '#f59e0b', bg: 'rgba(245,158,11,0.15)' },
+    { label: 'En Entrega', value: stats.inDelivery, icon: 'car', color: '#8b5cf6', bg: 'rgba(139,92,246,0.15)' },
+    { label: 'Entregado', value: stats.delivered, icon: 'checkmark-circle', color: '#10b981', bg: 'rgba(16,185,129,0.15)' },
   ];
 
   if (loading) {
@@ -83,8 +83,8 @@ export default function HomeScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.greeting}>Hello, {user?.name || 'Driver'}</Text>
-          <Text style={styles.subtitle}>Here's your delivery overview</Text>
+          <Text style={styles.greeting}>Hola, {user?.name || 'Driver'}</Text>
+          <Text style={styles.subtitle}>Aquí está tu resumen de entregas</Text>
         </View>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{(user?.name && user.name[0]) || 'D'}</Text>
@@ -111,17 +111,17 @@ export default function HomeScreen() {
         activeOpacity={0.7}
       >
         <Ionicons name="list" size={20} color="#3b82f6" />
-        <Text style={styles.quickActionText}>View All Deliveries</Text>
+        <Text style={styles.quickActionText}>Ver Todas las Entregas</Text>
         <Ionicons name="chevron-forward" size={18} color="#64748b" />
       </TouchableOpacity>
 
       {/* Recent Active Deliveries */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Active Deliveries</Text>
+        <Text style={styles.sectionTitle}>Entregas Activas</Text>
         {recentShipments.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="checkmark-done" size={48} color="#64748b" />
-            <Text style={styles.emptyText}>No active deliveries</Text>
+            <Text style={styles.emptyText}>No hay entregas activas</Text>
           </View>
         ) : (
           recentShipments.map((shipment) => (

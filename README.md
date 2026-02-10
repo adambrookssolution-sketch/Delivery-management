@@ -1,35 +1,40 @@
-# DeliveryMS - Delivery Management System
+# QuetzalEnvios - Sistema de Gestion de Envios
 
-A complete delivery/logistics management platform with Admin Panel, REST API, and Mobile Driver App.
+Plataforma completa de gestion de envios y logistica con Panel de Administracion, API REST, Aplicacion Movil para Conductores y Pagina de Rastreo Publico.
 
-## Features
+## Caracteristicas
 
-### Admin Panel
-- **Dashboard** - Overview statistics and recent shipments
-- **Shipment Management** - Create, track, and manage deliveries
-- **User Management** - Manage admins, drivers, and dispatchers
-- **Label Printing** - Generate 4x6 shipping labels with QR codes
+### Panel de Administracion
+- **Panel Principal** - Estadisticas generales y envios recientes
+- **Gestion de Envios** - Crear, rastrear y administrar entregas
+- **Gestion de Usuarios** - Administrar administradores, conductores y despachadores
+- **Impresion de Etiquetas** - Generar etiquetas de envio 4x6 con codigos QR
 
-### Backend API
-- RESTful API with JWT authentication
-- Role-based access control (Admin, Driver, Dispatcher)
-- Shipment tracking with status history
-- File upload for signatures and photos
-- Swagger API documentation
+### API Backend
+- API RESTful con autenticacion JWT
+- Control de acceso basado en roles (Admin, Conductor, Despachador)
+- Rastreo de envios con historial de estados
+- Carga de archivos para firmas y fotos
+- Documentacion Swagger API
 
-### Mobile Driver App
-- **Login** - JWT authentication with token refresh
-- **Dashboard** - Delivery stats overview (Total, Pending, In Delivery, Delivered)
-- **Deliveries** - View assigned shipments with filter tabs (All/Pending/Active/Delivered)
-- **Delivery Detail** - Full shipment info, recipient/sender cards, package details, status timeline
-- **Status Updates** - Progress shipments through PENDING > PICKED_UP > IN_TRANSIT > OUT_FOR_DELIVERY > DELIVERED
-- **Delivery Completion** - 3-step flow: Photo capture > Delivery code > Confirmation
-- **Camera** - Take proof-of-delivery photos with flash toggle and front/back camera switch
-- **Navigation** - Open maps to recipient location (Google Maps / Apple Maps)
-- **Call** - One-tap call to recipient phone number
-- **Profile** - View driver info, change password, logout
-- **Pull-to-Refresh** - Refresh data on all screens
-- **Offline Detection** - Alert when no internet connection
+### Aplicacion Movil (Conductor)
+- **Inicio de Sesion** - Autenticacion JWT con renovacion de token
+- **Panel Principal** - Estadisticas de entregas (Total, Pendientes, En Entrega, Entregados)
+- **Entregas** - Ver envios asignados con filtros (Todos/Pendientes/Activos/Entregados)
+- **Detalle de Entrega** - Info completa, tarjetas de destinatario/remitente, detalles del paquete, linea de tiempo
+- **Actualizacion de Estado** - Progresar envios: PENDIENTE > RECOGIDO > EN TRANSITO > EN CAMINO > ENTREGADO
+- **Completar Entrega** - Flujo de 3 pasos: Foto > Codigo de entrega > Confirmacion
+- **Camara** - Fotos de prueba de entrega con flash y cambio de camara
+- **Navegacion** - Abrir mapas hacia la ubicacion del destinatario
+- **Llamar** - Llamada directa al numero del destinatario
+- **Perfil** - Ver info del conductor, cambiar contrasena, cerrar sesion
+- **Actualizar** - Deslizar para actualizar datos en todas las pantallas
+- **Modo Offline** - Cola automatica de solicitudes sin conexion, se envian al reconectar
+
+### Rastreo Publico
+- Pagina web publica para rastrear envios por numero de seguimiento
+- Linea de tiempo visual del estado del envio
+- No requiere autenticacion
 
 ---
 
@@ -197,17 +202,17 @@ Swagger UI: **http://localhost:3000/api-docs**
 
 ---
 
-## Shipment Statuses
+## Estados de Envio
 
-| Status | Description |
+| Estado | Descripcion |
 |--------|-------------|
-| PENDING | Awaiting pickup |
-| PICKED_UP | Picked up from sender |
-| IN_TRANSIT | In transit to destination |
-| OUT_FOR_DELIVERY | Out for final delivery |
-| DELIVERED | Successfully delivered |
-| FAILED | Delivery failed |
-| RETURNED | Returned to sender |
+| PENDING | Pendiente - Esperando recogida |
+| PICKED_UP | Recogido - Recogido del remitente |
+| IN_TRANSIT | En Transito - En camino al destino |
+| OUT_FOR_DELIVERY | En Camino - En entrega final |
+| DELIVERED | Entregado - Entregado exitosamente |
+| FAILED | Fallido - Entrega fallida |
+| RETURNED | Devuelto - Devuelto al remitente |
 
 ---
 
@@ -230,12 +235,11 @@ See [TEST_GUIDE.md](./TEST_GUIDE.md) for detailed testing instructions.
 
 ---
 
-## Roadmap
+## Progreso del Proyecto
 
-- [x] **Milestone 1**: Backend API + Admin Panel
-- [x] **Milestone 2**: Mobile App (Driver)
-- [ ] **Milestone 3**: Customer Tracking Website
-- [ ] **Milestone 4**: Advanced Features (Notifications, Reports)
+- [x] **Milestone 1**: Backend API + Panel de Administracion + Rastreo Publico
+- [x] **Milestone 2**: Aplicacion Movil (Conductor)
+- [x] **Milestone 3**: Traduccion a Espanol + Modo Offline + Rebranding
 
 ---
 

@@ -20,10 +20,10 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef } from 'react';
 
 const NEXT_STATUS = {
-  PENDING: { status: 'PICKED_UP', label: 'Pick Up Package', color: '#3b82f6', icon: 'hand-left' },
-  PICKED_UP: { status: 'IN_TRANSIT', label: 'Start Transit', color: '#8b5cf6', icon: 'car' },
-  IN_TRANSIT: { status: 'OUT_FOR_DELIVERY', label: 'Out for Delivery', color: '#06b6d4', icon: 'navigate' },
-  OUT_FOR_DELIVERY: { status: 'DELIVERED', label: 'Complete Delivery', color: '#10b981', icon: 'checkmark-circle' },
+  PENDING: { status: 'PICKED_UP', label: 'Recoger Paquete', color: '#3b82f6', icon: 'hand-left' },
+  PICKED_UP: { status: 'IN_TRANSIT', label: 'Iniciar Tránsito', color: '#8b5cf6', icon: 'car' },
+  IN_TRANSIT: { status: 'OUT_FOR_DELIVERY', label: 'En Camino', color: '#06b6d4', icon: 'navigate' },
+  OUT_FOR_DELIVERY: { status: 'DELIVERED', label: 'Completar Entrega', color: '#10b981', icon: 'checkmark-circle' },
 };
 
 export default function DeliveryDetailScreen() {
@@ -56,7 +56,7 @@ export default function DeliveryDetailScreen() {
       const res = await shipmentAPI.getById(id);
       setShipment(res.data.data);
     } catch (error) {
-      Alert.alert('Error', 'Failed to load shipment details');
+      Alert.alert('Error', 'Error al cargar detalles del envío');
       router.back();
     } finally {
       setLoading(false);
@@ -74,21 +74,21 @@ export default function DeliveryDetailScreen() {
     }
 
     Alert.alert(
-      'Update Status',
-      `Change status to "${next.label}"?`,
+      'Actualizar Estado',
+      `Cambiar estado a "${next.label}"?`,
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: 'Cancelar', style: 'cancel' },
         {
-          text: 'Confirm',
+          text: 'Confirmar',
           onPress: async () => {
             setActionLoading(true);
             try {
               await shipmentAPI.updateStatus(id, next.status, note || undefined);
               setNote('');
               await fetchShipment();
-              Alert.alert('Success', 'Status updated');
+              Alert.alert('Éxito', 'Estado actualizado');
             } catch (error) {
-              Alert.alert('Error', error.response?.data?.message || 'Failed to update status');
+              Alert.alert('Error', error.response?.data?.message || 'Error al actualizar estado');
             } finally {
               setActionLoading(false);
             }
@@ -124,7 +124,7 @@ export default function DeliveryDetailScreen() {
     if (!permission?.granted) {
       const result = await requestPermission();
       if (!result.granted) {
-        Alert.alert('Permission Required', 'Camera permission is needed to take delivery photos');
+        Alert.alert('Permiso Requerido', 'Se necesita permiso de cámara para tomar fotos de entrega');
         return;
       }
     }
@@ -138,7 +138,7 @@ export default function DeliveryDetailScreen() {
         setCapturedPhoto(photo.uri);
         setShowCamera(false);
       } catch (error) {
-        Alert.alert('Error', 'Failed to capture photo. Please try again.');
+        Alert.alert('Error', 'Error al capturar foto. Intente de nuevo.');
       }
     }
   };
@@ -157,7 +157,7 @@ export default function DeliveryDetailScreen() {
       setPhotoUrl(res.data.data.url);
       setCompletionStep(shipment.deliveryCode ? 1 : 2);
     } catch (error) {
-      Alert.alert('Error', 'Failed to upload photo');
+      Alert.alert('Error', 'Error al subir foto');
     } finally {
       setActionLoading(false);
     }
@@ -173,11 +173,11 @@ export default function DeliveryDetailScreen() {
 
       await shipmentAPI.deliver(id, data);
       setShowCompletion(false);
-      Alert.alert('Delivery Complete!', 'The delivery has been marked as completed.', [
+      Alert.alert('¡Entrega Completada!', 'La entrega ha sido marcada como completada.', [
         { text: 'OK', onPress: () => router.back() },
       ]);
     } catch (error) {
-      Alert.alert('Error', error.response?.data?.message || 'Failed to complete delivery');
+      Alert.alert('Error', error.response?.data?.message || 'Error al completar entrega');
     } finally {
       setActionLoading(false);
     }
@@ -213,7 +213,7 @@ export default function DeliveryDetailScreen() {
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <Ionicons name="person" size={18} color="#10b981" />
-            <Text style={styles.cardTitle}>Recipient</Text>
+            <Text style={styles.cardTitle}>Destinatario</Text>
           </View>
           <Text style={styles.cardName}>{shipment.recipientName}</Text>
           <Text style={styles.cardText}>{shipment.recipientPhone}</Text>
@@ -221,11 +221,11 @@ export default function DeliveryDetailScreen() {
           <View style={styles.cardActions}>
             <TouchableOpacity style={styles.cardActionBtn} onPress={callRecipient}>
               <Ionicons name="call" size={18} color="#3b82f6" />
-              <Text style={styles.cardActionText}>Call</Text>
+              <Text style={styles.cardActionText}>Llamar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.cardActionBtn} onPress={openMaps}>
               <Ionicons name="navigate" size={18} color="#3b82f6" />
-              <Text style={styles.cardActionText}>Navigate</Text>
+              <Text style={styles.cardActionText}>Navegar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -234,7 +234,7 @@ export default function DeliveryDetailScreen() {
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <Ionicons name="business" size={18} color="#f59e0b" />
-            <Text style={styles.cardTitle}>Sender</Text>
+            <Text style={styles.cardTitle}>Remitente</Text>
           </View>
           <Text style={styles.cardName}>{shipment.senderName}</Text>
           <Text style={styles.cardText}>{shipment.senderPhone}</Text>
@@ -245,18 +245,18 @@ export default function DeliveryDetailScreen() {
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <Ionicons name="cube" size={18} color="#8b5cf6" />
-            <Text style={styles.cardTitle}>Package</Text>
+            <Text style={styles.cardTitle}>Paquete</Text>
           </View>
           <View style={styles.packageRow}>
             {shipment.packageWeight && (
               <View style={styles.packageItem}>
-                <Text style={styles.packageLabel}>Weight</Text>
+                <Text style={styles.packageLabel}>Peso</Text>
                 <Text style={styles.packageValue}>{shipment.packageWeight} kg</Text>
               </View>
             )}
             {shipment.packageSize && (
               <View style={styles.packageItem}>
-                <Text style={styles.packageLabel}>Size</Text>
+                <Text style={styles.packageLabel}>Tamaño</Text>
                 <Text style={styles.packageValue}>{shipment.packageSize}</Text>
               </View>
             )}
@@ -271,7 +271,7 @@ export default function DeliveryDetailScreen() {
           <View style={styles.card}>
             <View style={styles.cardHeader}>
               <Ionicons name="time" size={18} color="#06b6d4" />
-              <Text style={styles.cardTitle}>Timeline</Text>
+              <Text style={styles.cardTitle}>Línea de Tiempo</Text>
             </View>
             {shipment.statusHistory.map((entry, index) => (
               <View key={entry.id} style={styles.timelineItem}>
@@ -303,7 +303,7 @@ export default function DeliveryDetailScreen() {
           <View style={styles.noteContainer}>
             <TextInput
               style={styles.noteInput}
-              placeholder="Add a note (optional)"
+              placeholder="Agregar una nota (opcional)"
               placeholderTextColor="#64748b"
               value={note}
               onChangeText={setNote}
@@ -341,7 +341,7 @@ export default function DeliveryDetailScreen() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Complete Delivery</Text>
+              <Text style={styles.modalTitle}>Completar Entrega</Text>
               <TouchableOpacity onPress={() => setShowCompletion(false)}>
                 <Ionicons name="close" size={24} color="#94a3b8" />
               </TouchableOpacity>
@@ -349,7 +349,7 @@ export default function DeliveryDetailScreen() {
 
             {/* Step Indicators */}
             <View style={styles.steps}>
-              {['Photo', shipment.deliveryCode ? 'Code' : null, 'Confirm']
+              {['Foto', shipment.deliveryCode ? 'Código' : null, 'Confirmar']
                 .filter(Boolean)
                 .map((step, i) => (
                   <View key={step} style={styles.stepItem}>
@@ -376,18 +376,18 @@ export default function DeliveryDetailScreen() {
             {/* Step 0: Photo */}
             {completionStep === 0 && (
               <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>Take Delivery Photo</Text>
-                <Text style={styles.stepDesc}>Take a photo as proof of delivery</Text>
+                <Text style={styles.stepTitle}>Tomar Foto de Entrega</Text>
+                <Text style={styles.stepDesc}>Tome una foto como prueba de entrega</Text>
 
                 {capturedPhoto ? (
                   <View style={styles.photoPreview}>
-                    <Text style={styles.photoTaken}>Photo captured</Text>
+                    <Text style={styles.photoTaken}>Foto capturada</Text>
                     <View style={styles.photoActions}>
                       <TouchableOpacity
                         style={styles.retakeBtn}
                         onPress={() => setCapturedPhoto(null)}
                       >
-                        <Text style={styles.retakeBtnText}>Retake</Text>
+                        <Text style={styles.retakeBtnText}>Repetir</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         style={styles.uploadBtn}
@@ -397,7 +397,7 @@ export default function DeliveryDetailScreen() {
                         {actionLoading ? (
                           <ActivityIndicator color="#fff" size="small" />
                         ) : (
-                          <Text style={styles.uploadBtnText}>Next</Text>
+                          <Text style={styles.uploadBtnText}>Siguiente</Text>
                         )}
                       </TouchableOpacity>
                     </View>
@@ -405,7 +405,7 @@ export default function DeliveryDetailScreen() {
                 ) : (
                   <TouchableOpacity style={styles.cameraBtn} onPress={takePhoto}>
                     <Ionicons name="camera" size={32} color="#3b82f6" />
-                    <Text style={styles.cameraBtnText}>Open Camera</Text>
+                    <Text style={styles.cameraBtnText}>Abrir Cámara</Text>
                   </TouchableOpacity>
                 )}
 
@@ -414,7 +414,7 @@ export default function DeliveryDetailScreen() {
                   style={styles.skipBtn}
                   onPress={() => setCompletionStep(shipment.deliveryCode ? 1 : 2)}
                 >
-                  <Text style={styles.skipBtnText}>Skip photo</Text>
+                  <Text style={styles.skipBtnText}>Saltar foto</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -422,9 +422,9 @@ export default function DeliveryDetailScreen() {
             {/* Step 1: Delivery Code */}
             {completionStep === 1 && (
               <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>Enter Delivery Code</Text>
+                <Text style={styles.stepTitle}>Ingresar Código de Entrega</Text>
                 <Text style={styles.stepDesc}>
-                  Ask the recipient for the 6-digit delivery code
+                  Solicite al destinatario el código de entrega de 6 dígitos
                 </Text>
                 <TextInput
                   style={styles.codeInput}
@@ -444,7 +444,7 @@ export default function DeliveryDetailScreen() {
                   onPress={() => setCompletionStep(2)}
                   disabled={deliveryCode.length !== 6}
                 >
-                  <Text style={styles.nextBtnText}>Next</Text>
+                  <Text style={styles.nextBtnText}>Siguiente</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -452,8 +452,8 @@ export default function DeliveryDetailScreen() {
             {/* Step 2: Confirm */}
             {completionStep === 2 && (
               <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>Confirm Delivery</Text>
-                <Text style={styles.stepDesc}>Review and confirm the delivery</Text>
+                <Text style={styles.stepTitle}>Confirmar Entrega</Text>
+                <Text style={styles.stepDesc}>Revise y confirme la entrega</Text>
 
                 <View style={styles.confirmList}>
                   <View style={styles.confirmItem}>
@@ -463,13 +463,13 @@ export default function DeliveryDetailScreen() {
                   <View style={styles.confirmItem}>
                     <Ionicons name="camera" size={16} color="#94a3b8" />
                     <Text style={styles.confirmText}>
-                      {photoUrl ? 'Photo attached' : 'No photo'}
+                      {photoUrl ? 'Foto adjunta' : 'Sin foto'}
                     </Text>
                   </View>
                   {shipment.deliveryCode && (
                     <View style={styles.confirmItem}>
                       <Ionicons name="key" size={16} color="#94a3b8" />
-                      <Text style={styles.confirmText}>Code: {deliveryCode}</Text>
+                      <Text style={styles.confirmText}>Código: {deliveryCode}</Text>
                     </View>
                   )}
                 </View>
@@ -485,7 +485,7 @@ export default function DeliveryDetailScreen() {
                   ) : (
                     <>
                       <Ionicons name="checkmark-circle" size={22} color="#fff" />
-                      <Text style={styles.completeBtnText}>Confirm Delivery</Text>
+                      <Text style={styles.completeBtnText}>Confirmar Entrega</Text>
                     </>
                   )}
                 </TouchableOpacity>

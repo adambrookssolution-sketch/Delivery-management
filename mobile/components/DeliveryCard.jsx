@@ -13,12 +13,12 @@ export default function DeliveryCard({ shipment, onPress }) {
       <View style={styles.info}>
         <View style={styles.row}>
           <Ionicons name="person-outline" size={16} color="#94a3b8" />
-          <Text style={styles.infoText}>{shipment.recipientName || 'Unknown'}</Text>
+          <Text style={styles.infoText}>{shipment.recipientName || 'Desconocido'}</Text>
         </View>
         <View style={styles.row}>
           <Ionicons name="location-outline" size={16} color="#94a3b8" />
           <Text style={styles.infoText} numberOfLines={1}>
-            {shipment.recipientAddress || 'No address'}
+            {shipment.recipientAddress || 'Sin dirección'}
           </Text>
         </View>
         {shipment.packageSize && (
